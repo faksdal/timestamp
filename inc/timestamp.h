@@ -7,7 +7,9 @@ class timestamp{
 
 	int				year;
 
-	short			month, day, hour, minute, second;
+	short			month, hour, minute;
+
+	float			day, second;
 
 	bool			is_leap;
 
@@ -20,6 +22,6 @@ class timestamp{
 public:
 
 	timestamp(void);
-	timestamp(int _year, short _month, float _day);
+	timestamp(int _year, short _month, float _day, short _hour, short _minute, float _second);
 
 };
