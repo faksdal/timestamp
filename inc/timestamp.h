@@ -9,13 +9,13 @@
 class timestamp{
 
 	enum class calendar_types{proleptic_julian, julian, gregorian};
-	//std::string	calendar_type[3] = { "Proleptic Julian", "Julian", "Gregorian" };
 
 	int				ts_year;
 
 	short			ts_month, ts_hour, ts_minute, ts_tz, ts_dst;
 
-	double			ts_day, ts_second;
+	float			ts_day;
+	double			ts_second;
 
 	bool			ts_isLeap;
 	bool			ts_validDate, ts_gregorianDate;
@@ -47,7 +47,7 @@ public:
 	short	ts_getHour(void)			{return ts_hour;}
 	short	ts_getMinute(void)			{return ts_minute;}
 
-	double	ts_getDay(void)				{return ts_day;}
+	float	ts_getDay(void)				{return ts_day;}
 	double	ts_getSecond(void)			{return ts_second;}
 
 	std::string	ts_getMonthName(void)			{return month_name[ts_month - 1];}
