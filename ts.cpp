@@ -25,8 +25,8 @@
 
 
 void parseOptarg(char **_optarg);
-void getSystemDate(int &_year, short &_month, float &_day, bool _verbose);
-void getSystemTime(short &_hour, short &_minute, float &_second, bool _verbose);
+void getSystemDate(int &_year, short &_month, float &_day);
+void getSystemTime(short &_hour, short &_minute, float &_second);
 void printDate(int _year, short _month, float _day);
 void printTime(short _hour, short _minute, float _second);
 
@@ -54,9 +54,6 @@ int main(int argc, char *argv[])
 
 	bool	dateSupplied	= false;
 	bool	timeSupplied	= false;
-	bool	verbose			= false;
-
-	//std::string	planet = "Earth";
 
 	//
 	//	getopt variables
@@ -93,7 +90,7 @@ int main(int argc, char *argv[])
 	while((c = getopt_long(argc, argv, shortOptions, longOptions, &optionIndex)) != -1){
 		switch(c){
 			case 1:		{
-							//tz = atoi(optarg);
+							tz = atoi(optarg);
 							break;
 						}
 			case 2:		{
@@ -105,11 +102,11 @@ int main(int argc, char *argv[])
 							break;
 						}
 			case 4:		{
-							//dst = atoi(optarg);
+							dst = atoi(optarg);
 							break;
 						}
 			case 'v':	{
-							verbose	= true;
+							//verbose	= true;
 							//std::cout << "Verbose..." << (int)verbose << std::endl;
 							break;
 						}
@@ -155,18 +152,17 @@ int main(int argc, char *argv[])
 		} // switch(c)
 	} // while((c = getopt_long(argc, argv, shortOptions, longOptions, &optionIndex)) != -1)
 
-	//dateSupplied ? printDate(year, month, day)		: getSystemDate(year, month, day, verbose);
-	//timeSupplied ? printTime(hour, minute, second)	: getSystemTime(hour, minute, second, verbose);
+	dateSupplied ? printDate(year, month, day)		: getSystemDate(year, month, day);
+	timeSupplied ? printTime(hour, minute, second)	: getSystemTime(hour, minute, second);
 
+	timestamp* ts = new timestamp(year, month, day, hour, minute, second, tz, dst);
 
-	//std::string planet = "Earth";
+	// std::cout << "Calendar type: " << ts->ts_getCalendarTypeString() << std::endl;
 
-	//sunpos * sp = new sunpos(year, month, day, hour, minute, second, tz, dst, verbose, planet, lat, lon);
+	std::cout << ts->ts_getDateString() << std::endl;
 
-	//sp->sp_printToScreen();
-
-	//if(sp)
-	//	delete sp;
+	if(ts)
+		delete ts;
 
 	return 0;
 }	//	int main(int argc, char *argv[])
@@ -187,10 +183,9 @@ void parseOptarg(char **_optarg)
 
 
 
-void getSystemDate(int &_year, short &_month, float &_day, bool _verbose)
+void getSystemDate(int &_year, short &_month, float &_day)
 {
-	//if(_verbose)
-		std::cout << "Date not supplied, using system date..." << std::endl;
+	//std::cout << "Date not supplied, using system date..." << std::endl;
 
 	time_t current = time(NULL);
 	struct tm* current_s = localtime(&current);
@@ -202,19 +197,14 @@ void getSystemDate(int &_year, short &_month, float &_day, bool _verbose)
 	//	Fixes the floating point values on print, see: https://faculty.cs.niu.edu/~hutchins/csci241/output.htm
 	//	Used in conjunction with setw() and setprecision()
 	//cout.setf(ios::fixed);
-	if(_verbose){
-		printDate(_year, _month, _day);
-	}
 
 	return;
 }
 
 
-void getSystemTime(short &_hour, short &_minute, float &_second, bool _verbose)
+void getSystemTime(short &_hour, short &_minute, float &_second)
 {
-	//if(_verbose)
-		//std::cout << "Time not supplied, defaults to 12:00:00, which historically is when the next julian day begins." << std::endl;
-		std::cout << "Time not supplied, using system time." << std::endl;
+	//std::cout << "Time not supplied, using system time." << std::endl;
 
 	time_t current = time(NULL);
 	struct tm* current_s = localtime(&current);
@@ -226,11 +216,6 @@ void getSystemTime(short &_hour, short &_minute, float &_second, bool _verbose)
 	//_hour	= 12;
 	//_minute	= 0;
 	//_second	= 0.000;
-
-
-	if(_verbose){
-		printTime(_hour, _minute, _second);
-	}
 
 	return;
 }

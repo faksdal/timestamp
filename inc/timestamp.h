@@ -19,7 +19,6 @@ class timestamp{
 
 	bool			ts_isLeap;
 	bool			ts_validDate, ts_gregorianDate;
-	bool			ts_verbose;
 
 	calendar_types	ts_calendar_type;
 
@@ -35,7 +34,7 @@ protected:
 public:
 
 	timestamp(void);
-	timestamp(int _year, short _month, double _day, short _hour, short _minute, double _second, short _tz, short _dst, bool _verbose);
+	timestamp(int _year, short _month, double _day, short _hour, short _minute, double _second, short _tz, short _dst);
 
 	/*************************************************************************/
 	int		ts_getYear(void)			{return ts_year;}
@@ -56,6 +55,7 @@ public:
 	/*************************************************************************/
 
 	std::string		ts_getCalendarTypeString(void);
+	std::string		ts_getDateString(void);
 
 };
 

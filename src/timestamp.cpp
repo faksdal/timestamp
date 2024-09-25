@@ -9,7 +9,7 @@
 
 
 
-timestamp::timestamp(int _year, short _month, double _day, short _hour, short _minute, double _second, short _tz, short _dst, bool _verbose)
+timestamp::timestamp(int _year, short _month, double _day, short _hour, short _minute, double _second, short _tz, short _dst)
 {
 	ts_validDate = true;
 
@@ -21,7 +21,6 @@ timestamp::timestamp(int _year, short _month, double _day, short _hour, short _m
 	ts_second	= _second;
 	ts_tz		= _tz;
 	ts_dst		= _dst;
-	ts_verbose	= _verbose;
 
 	/*
 	std::cout << " _year: " << _year << std::endl;
@@ -98,14 +97,10 @@ void timestamp::ts_parseDate(void)
 	ts_isLeap	= false;
 	if(ts_year > 1582){
 		if( ((ts_year % 4) == 0) && (((ts_year % 100) != 0) || ((ts_year % 400) == 0))){
-			if(ts_verbose)
-				std::cout << ts_year << " is a Leap year :-)" << std::endl;
 
 			ts_isLeap	= true;
 		}
 		else{
-			if(ts_verbose)
-				std::cout << ts_year << " is not Leap year!" << std::endl;
 
 			ts_isLeap	= false;
 		}
@@ -130,8 +125,8 @@ void timestamp::ts_parseDate(void)
 		case 11:
 		case 12:
 		case 13:
-		case 14:	std::cout << std::endl << "No such date!\n Exiting..." << std::endl;
-					ts_validDate = false;
+		case 14:	std::cerr << std::endl << "No such date!\n Exiting..." << std::endl;
+					//ts_validDate = false;
 					exit(-1);
 					break;
 		default:	break;
@@ -169,6 +164,8 @@ void timestamp::ts_parseDate(void)
 		}
 	}
 
+
+	/*
 	if(ts_verbose){
 		switch(ts_calendar_type){
 			case calendar_types::gregorian:			break;
@@ -179,7 +176,8 @@ void timestamp::ts_parseDate(void)
 
 		std::cout << ts_getCalendarTypeString() << std::endl;
 
-	} // switch(ts_calendar_type)
+	}
+	*/
 
 }
 
@@ -202,8 +200,3 @@ std::string timestamp::ts_getCalendarTypeString(void)
 	//std::cout << "calendar_type[(int)ts_calendar_type] " << calendar_type[(int)ts_calendar_type] << std::endl;
 	return calendar_type[(int)ts_calendar_type];
 }
-
-
-
-
-
