@@ -155,11 +155,13 @@ int main(int argc, char *argv[])
 	dateSupplied ? printDate(year, month, day)		: getSystemDate(year, month, day);
 	timeSupplied ? printTime(hour, minute, second)	: getSystemTime(hour, minute, second);
 
+	std::cout << year << "-" << month << "-" << day << std::endl;
+
 	timestamp* ts = new timestamp(year, month, day, hour, minute, second, tz, dst);
 
 	// std::cout << "Calendar type: " << ts->ts_getCalendarTypeString() << std::endl;
 
-	std::cout << ts->ts_getDateString() << std::endl;
+	ts->ts_getDateString();
 
 	if(ts)
 		delete ts;
