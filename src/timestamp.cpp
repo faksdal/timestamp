@@ -11,29 +11,18 @@
 
 timestamp::timestamp(int _year, short _month, double _day, short _hour, short _minute, double _second, short _tz, short _dst)
 {
-	ts_validDate = true;
+	ts_validDate	= true;
 
-	ts_year 	= _year;
-	ts_month	= _month;
-	ts_hour		= _hour - _tz - _dst;
-	ts_minute	= _minute;
-	ts_day		= _day;
-	ts_second	= _second;
-	ts_tz		= _tz;
-	ts_dst		= _dst;
-
-	/*
-	std::cout << " _year: " << _year << std::endl;
-	std::cout << "_month: " << _month << std::endl;
-	std::cout << "  _day: " << _day << std::endl;
-
-	std::cout << " ts_year: " << ts_year << std::endl;
-	std::cout << "ts_month: " << ts_month << std::endl;
-	std::cout << "  ts_day: " << ts_day << std::endl;
-	*/
+	ts_year 		= _year;
+	ts_month		= _month;
+	ts_hour			= _hour - _tz - _dst;
+	ts_minute		= _minute;
+	ts_day			= _day;
+	ts_second		= _second;
+	ts_tz			= _tz;
+	ts_dst			= _dst;
 
 	ts_parseDate();
-
 
 	// check date for validity
 	// Check 31-day months first
@@ -163,22 +152,6 @@ void timestamp::ts_parseDate(void)
 			//std::cout << "Propleptic Julian " << (int)ts_calendar_type << std::endl;
 		}
 	}
-
-
-	/*
-	if(ts_verbose){
-		switch(ts_calendar_type){
-			case calendar_types::gregorian:			break;
-			case calendar_types::julian:			break;
-			case calendar_types::proleptic_julian:	break;
-			default:								break;
-		}
-
-		std::cout << ts_getCalendarTypeString() << std::endl;
-
-	}
-	*/
-
 }
 
 
@@ -200,3 +173,5 @@ std::string timestamp::ts_getCalendarTypeString(void)
 	//std::cout << "calendar_type[(int)ts_calendar_type] " << calendar_type[(int)ts_calendar_type] << std::endl;
 	return calendar_type[(int)ts_calendar_type];
 }
+
+

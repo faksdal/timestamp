@@ -15,8 +15,9 @@
 
 std::string timestamp::ts_getDateString(void)
 {
-	std::string	retVal		= "date string";
+	std::string	retVal		= "";
 	std::string	dayPostFix	= "th";
+
 
 	switch((int)ts_day){
 		case 1:		dayPostFix = "st";
@@ -36,13 +37,12 @@ std::string timestamp::ts_getDateString(void)
 		default:	break;
 	}
 
-	//std::cout << (int)ts_day << std::endl;
-
-	retVal = ts_day;
-	std::cout << retVal << std::endl;
-
+	retVal = std::to_string((int)ts_day);
 	retVal.append(dayPostFix);
-	std::cout << retVal << std::endl;
+	retVal.append(" of ");
+	retVal.append(ts_getMonthName());
+	retVal.append(" ");
+	retVal.append(std::to_string((int)ts_year));
 
 	return retVal;
 }
