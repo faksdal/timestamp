@@ -159,8 +159,6 @@ int main(int argc, char *argv[])
 
 	timestamp* ts = new timestamp(year, month, day, hour, minute, second, tz, dst);
 
-	// std::cout << "Calendar type: " << ts->ts_getCalendarTypeString() << std::endl;
-
 	std::cout << "Date: " << ts->ts_getDateString() << std::endl;
 
 	if(ts)
